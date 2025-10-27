@@ -1,3 +1,4 @@
+// Copy Paste
 class Solution {
     public int numberOfBeams(String[] bank) {
         int prev = 0; 
