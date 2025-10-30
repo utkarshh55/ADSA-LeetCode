@@ -20,6 +20,6 @@ class Solution {
             return true;
         }
         int remainingSum=targetSum-root.val;
-        return hasPathSum(root.left,remainingSum) || hasPathSum(root.right,remainingSum);
+        return hasPathSum(root.left,remainingSum) || hasPathSum(root.right,remainingSum) ;
     }
 }
