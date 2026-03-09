@@ -1,21 +1,39 @@
 class Solution {
-    public void dfs(int city,int[][] isConnected,boolean[] visited ){
-        visited[city]=true;
-        for(int i=0;i<isConnected.length;i++){
-            if(isConnected[city][i]==1 && !visited[i]){
-                dfs(i,isConnected,visited);
+    class DSU{
+        int parent[];
+        DSU(int n){
+            parent = new int[n];
+            for(int i = 0; i < n; i++){
+                parent[i] = i;
             }
+        }
+        public void union(int a, int b){
+            int pa = find(a);
+            int pb = find(b);
+            if(pa != pb){
+                parent[pb] = pa;
+            }
+        }
+        public int find(int x){
+            if(parent[x] == x) return x;
+            return parent[x] = find(parent[x]);
         }
     }
     public int findCircleNum(int[][] isConnected) {
-        int n=isConnected.length;
-        boolean[] visited=new boolean[n];
-        int count=0;
-        for(int i=0;i<n;i++){
-            if(!visited[i]){
-                dfs(i,isConnected,visited);
-                count++;
+        int n = isConnected.length;
+        DSU obj = new DSU(n);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(isConnected[i][j] == 1){
+                    obj.union(i, j);
+                }
+
             }
+        }
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            if(obj.find(i) == i)
+                count++;
         }
         return count;
     }
