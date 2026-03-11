@@ -11,4 +11,4 @@ FROM MovieRating JOIN Movies USING(movie_id)
 WHERE EXTRACT(YEAR_MONTH FROM created_at) = 202002
 GROUP BY title
 ORDER BY AVG(rating) DESC, title
-LIMIT 1)
+LIMIT 1);
