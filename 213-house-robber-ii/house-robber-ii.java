@@ -1,21 +1,22 @@
 class Solution {
-    private int[] dp;
-    private int maxLoot(int[] nums, int start, int end, int idx) {
-        if (idx > end) return 0;
-        if (dp[idx] != -1) return dp[idx];
-        int steal = nums[idx] + maxLoot(nums, start, end, idx + 2);
-        int skip = maxLoot(nums, start, end, idx + 1);
-        return dp[idx] = Math.max(steal, skip);
+    int[] dp;
+    public int solve(int[] nums, int i, int n) {
+        if (i > n) return 0;
+        if (dp[i] != -1) return dp[i];
+        int take = nums[i] + solve(nums, i + 2, n);
+        int skip = solve(nums, i + 1, n); 
+        return dp[i] = Math.max(take, skip);
     }
+
     public int rob(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        if (nums.length == 1) return nums[0];
-        dp = new int[nums.length];
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        if (n == 2) return Math.max(nums[0], nums[1]);
+        dp = new int[n];
         Arrays.fill(dp, -1);
-        int case1 = maxLoot(nums, 0, nums.length - 2, 0);
-        dp = new int[nums.length];
+        int case1 = solve(nums, 0, n - 2);
         Arrays.fill(dp, -1);
-        int case2 = maxLoot(nums, 1, nums.length - 1, 1);
+        int case2 = solve(nums, 1, n - 1);
         return Math.max(case1, case2);
     }
 }
