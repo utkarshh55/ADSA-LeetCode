@@ -1,18 +1,14 @@
 class Solution {
-    int[] dp;
-    public int solve(int[] nums,int i,int n){
-        if(i>=n) return 0;
-        if(dp[i]!=-1) return dp[i];
-        int steal=nums[i]+solve(nums,i+2,n);
-        int skip=solve(nums,i+1,n);
-        return dp[i]=Math.max(steal,skip);
-    }
     public int rob(int[] nums) {
         int n=nums.length;
-        dp=new int[n+1];
-        for(int i=0;i<=n;i++){
-            dp[i]=-1;
+        int[] dp=new int[n+1];
+        dp[0]=0;
+        dp[1]=nums[0];
+        for(int i=2;i<=n;i++){
+            int pick=nums[i-1]+dp[i-2];
+            int skip=dp[i-1];
+            dp[i]=Math.max(pick,skip);
         }
-        return solve(nums,0,n);
+        return dp[n];
     }
 }
