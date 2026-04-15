@@ -1,36 +1,15 @@
 class NumArray {
-    int[] tree;
-    int n;
-
+    int prefix[];
     public NumArray(int[] nums) {
-        n=nums.length;
-        tree=new int[4*n];
-        build(0,0,n-1,nums);
-    }
-    void build(int node,int start,int end,int[]nums){
-        if(start==end){
-            tree[node]=nums[start];
-            return;
-
+        int n=nums.length;
+        prefix=new int[n+1];
+        for(int i=0;i<n;i++){
+            prefix[i+1]=prefix[i]+nums[i];
         }
-        int mid=(start+end)/2;
-        build(2*node+1,start,mid,nums);
-        build(2*node+2,mid+1,end,nums);
-        tree[node] = tree[2 * node + 1] + tree[2 * node + 2];
     }
     
     public int sumRange(int left, int right) {
-        return query(0,0,n-1,left,right);
-
-        
-    }
-    public int query(int node,int start,int end,int l,int r){
-        if(r<start || end<l)return 0;
-        if(l<=start && end<=r){
-            return tree[node];
-        }
-        int mid=(start+end)/2;
-        return query(2*node+1,start,mid,l,r)+query(2*node+2,mid+1,end,l,r);
+        return prefix[right+1]-prefix[left];
     }
 }
 
