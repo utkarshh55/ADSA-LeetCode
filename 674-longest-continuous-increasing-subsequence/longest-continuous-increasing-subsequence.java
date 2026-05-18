@@ -1,25 +1,14 @@
 class Solution {
     public int findLengthOfLCIS(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
-        int ans = 1;
-        for (int i = 0; i < n; i++) {
-            ans = Math.max(ans, helper(i, nums, dp));
+        int left = 0;
+        int maxLen = 1;
+        for (int right = 1; right < n; right++) {
+            if (nums[right] <= nums[right - 1]) {
+                left = right;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
         }
-        return ans;
-    }
-    public int helper(int i, int[] nums, int[] dp) {
-        if (i == nums.length - 1) {
-            return 1;
-        }
-        if (dp[i] != -1) {
-            return dp[i];
-        }
-        int take = 1;
-        if (nums[i + 1] > nums[i]) {
-            take = 1 + helper(i + 1, nums, dp);
-        }
-        return dp[i] = take;
+        return maxLen;
     }
 }
