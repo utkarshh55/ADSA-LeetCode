@@ -22,12 +22,12 @@ class Solution {
             int size=q.size();
             leftMost=q.peek().val;
             for(int i=0;i<size;i++){
-                TreeNode node=q.poll();
-                if(node.left!=null){
-                    q.add(node.left);
+                TreeNode curr=q.poll();
+                if(curr.left!=null){
+                    q.add(curr.left);
                 }
-                if(node.right!=null){
-                    q.add(node.right);
+                if(curr.right!=null){
+                    q.add(curr.right);
                 }
             }
         }
