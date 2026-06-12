@@ -1,12 +1,14 @@
 class Solution {
     public boolean check(int[] nums) {
-        int breaks=0;
-        int n=nums.length;
-        for(int i=0;i<n;i++){
-            if(nums[i]>nums[(i+1)%n]){
-                breaks++;
-            } 
+        int count = 0;
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > nums[(i + 1) % n]) {
+                count++;
+            }
         }
-        return breaks<=1;
+
+        return count <= 1;
     }
 }
